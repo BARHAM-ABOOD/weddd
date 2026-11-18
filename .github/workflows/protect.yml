@@ -1,0 +1,31 @@
+name: Auto Obfuscate and Deploy
+
+on:
+  push:
+    branches: [ main ] # أو master حسب الفرع الرئيسي لديك
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install JavaScript Obfuscator
+        run: npm install -g javascript-obfuscator
+
+      - name: Run Obfuscation on Script
+        run: |
+          # هنا نقوم بتطبيق الأداة على أي ملف جافاسكريبت أو كود تفاعلي لديك لتشفيره تلقائياً
+          echo "Running obfuscation..."
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
